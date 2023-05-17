@@ -44,11 +44,19 @@ RSpec.describe DiaryEntry do
     # The next call after that it should restart from the beginning.
 
   describe "#reading_chunk" do
-    context "when given the wpm and minutes" do
-      it "returns string with a chunk of the contents that user could read in the given number of mins" do
+    context "with contents readable within the given number of minutes" do
+      it "returns the full string" do
         diary_entry = DiaryEntry.new("my_title", "one two three")
         chunk = diary_entry.reading_chunk(200, 1)
         expect(chunk).to eq "one two three"
+      end
+    end
+
+    context "with contents unreadable within the given number of minutes" do
+      it "returns only the readable chunk" do
+        diary_entry = DiaryEntry.new("my_title", "one two ")
+        chunk = diary_entry.reading_chunk(2, 1) #2 words per minute
+        expect(chunk).to eq "one two" #so it can only process 2 out of the 3 contents
       end
     end
   end
