@@ -1,6 +1,6 @@
 class DiaryEntry
   def initialize(title, contents) # title, contents are strings
-    
+
     @title = title
     @contents = contents
   end
@@ -20,7 +20,9 @@ class DiaryEntry
   def count_words
 
     # Returns the number of words in the contents as an integer
-    @contents.split(" ").length
+
+    individual_word.length #called the private method containing @contents
+    # was previously @contents.split(" ").length
   end
 
   def reading_time(wpm) # wpm is an integer representing the number of words the
@@ -36,7 +38,20 @@ class DiaryEntry
     # wmp is converted into a float, divides it and rounds total up
   end
 
-  def reading_chunk(wpm, minutes) 
-    return @contents
+  def reading_chunk(wpm, minutes)
+    words_we_can_read = wpm * minutes
+    # variable created for the amount of words of possible to read
+    word_list = individual_word[0, words_we_can_read]
+    # word_list accesses the private method individual_word
+    
+    return word_list.join(" ")
   end
+
+  private 
+        #private method that isn't visible outside the object
+          # used inside the object as a utility method
+  def individual_word
+    return @contents.split(" ") #calls split method on the contents array to seperate each word
+  end
+
 end
