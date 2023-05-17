@@ -35,4 +35,21 @@ RSpec.describe DiaryEntry do
       end
     end
   end
+
+
+    # Returns a string with a chunk of the contents that the user could read
+    # in the given number of minutes.
+    # If called again, `reading_chunk` should return the next chunk, skipping
+    # what has already been read, until the contents is fully read.
+    # The next call after that it should restart from the beginning.
+
+  describe "#reading_chunk" do
+    context "when given the wpm and minutes" do
+      it "returns string with a chunk of the contents that user could read in the given number of mins" do
+        diary_entry = DiaryEntry.new("my_title", "one two three")
+        chunk = diary_entry.reading_chunk(200, 1)
+        expect(chunk).to eq "one two three"
+      end
+    end
+  end
 end
