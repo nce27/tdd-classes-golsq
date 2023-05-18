@@ -15,4 +15,16 @@ RSpec.describe GrammarStats do
         expect(grammar.check("Hello world.")).to eq true
       end
   end
+
+  describe "#percentage_good" do
+    it "Tests multiple sentences to see if it is valid" do
+      grammar = GrammarStats.new
+      grammar.check("hello world.") # => false
+      grammar.check("Hello world!") # => true
+      grammar.check("Hello world?") # => true
+      grammar.check("Hello world") # => false
+      expect(grammar.percentage_good).to eq(50)
+      
+    end
+  end
 end
