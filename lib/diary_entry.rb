@@ -44,9 +44,14 @@ class DiaryEntry
     words_we_can_read = wpm * minutes # variable created for the amount of words of possible to read
     start_from = @furthest_word_read
     end_at = @furthest_word_read + words_we_can_read
-    word_list = individual_word[start_from, end_at]
-    @furthest_word_read = end_at
-    # word_list accesses the private method individual_word
+    word_list = individual_word[start_from, end_at] # word_list accesses the private method individual_word
+
+    if end_at > count_words # if the last word we can read is greater than the total word count,
+      @furthest_word_read = 0 # the furthest word read goes back to zero and the program restarts
+    else
+      @furthest_word_read = end_at
+    end
+
     return word_list.join(" ")
   end
 
