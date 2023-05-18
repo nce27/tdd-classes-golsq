@@ -54,9 +54,16 @@ RSpec.describe DiaryEntry do
 
     context "with contents unreadable within the given number of minutes" do
       it "returns only the readable chunk" do
-        diary_entry = DiaryEntry.new("my_title", "one two ")
+        diary_entry = DiaryEntry.new("my_title", "one two three")
         chunk = diary_entry.reading_chunk(2, 1) #2 words per minute
         expect(chunk).to eq "one two" #so it can only process 2 out of the 3 contents
+      end
+
+      it "returns the next chunk, next time we are asked" do
+        diary_entry = DiaryEntry.new("my_title", "one two three")
+        diary_entry.reading_chunk(2, 1) 
+        chunk = diary_entry.reading_chunk(2, 1)
+        expect(chunk).to eq "three" 
       end
     end
   end

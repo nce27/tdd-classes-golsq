@@ -3,6 +3,8 @@ class DiaryEntry
 
     @title = title
     @contents = contents
+    @furthest_word_read = 0 #new varibale that stores the most recently read word in contents
+    # begins at 0
   end
 
   def title
@@ -39,11 +41,12 @@ class DiaryEntry
   end
 
   def reading_chunk(wpm, minutes)
-    words_we_can_read = wpm * minutes
-    # variable created for the amount of words of possible to read
-    word_list = individual_word[0, words_we_can_read]
+    words_we_can_read = wpm * minutes # variable created for the amount of words of possible to read
+    start_from = @furthest_word_read
+    end_at = @furthest_word_read + words_we_can_read
+    word_list = individual_word[start_from, end_at]
+    @furthest_word_read = end_at
     # word_list accesses the private method individual_word
-    
     return word_list.join(" ")
   end
 
